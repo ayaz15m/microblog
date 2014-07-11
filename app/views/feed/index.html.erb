@@ -1,0 +1,13 @@
+<h1>Hello <%= @current_user.name %>!</h1>
+
+<% if @message.count > 0 %>
+  <% @message.each do |message| %>
+    <% if message %>
+      <%= link_to "#{message.user.name}" , profile_path(message.user) %><br>
+      <%= message.message %><br>
+      <%= distance_of_time_in_words(Time.now, message.created_at)%> ago</br></br>
+    <% end %>
+  <% end %>`
+<% else %>
+  <h5>No recent posts</h5>
+<% end %>

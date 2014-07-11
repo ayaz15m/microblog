@@ -1,0 +1,16 @@
+<h1><%= @current_user.name %>'s Friends</h1>
+
+<% if @friends.count > 0 %>
+  <% @friends.each do |friend| %>
+    <%= link_to "#{friend.user.name}" , profile_path(friend.user) %><br><br>
+  <% end %>
+<% end %>
+
+<h1> Other </h1>
+
+<% if @other_peeps.count > 0 %>
+  <% @other_peeps.each do |friend| %>
+    <h7><%= "#{friend.name} -" %></h7>
+    <%= link_to "FOLLOW", profiles_path(user_id: friend.id , follower: @current_user), method: :post%><br><br>
+  <% end %>
+<% end %>

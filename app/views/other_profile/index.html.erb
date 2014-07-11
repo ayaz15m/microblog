@@ -1,0 +1,16 @@
+<h1><%= @user.name %>'s Profile</h1>
+<%=  @user.location %><br>
+<%= image_tag @user.pic, class: "thumb" %></br><br>
+
+<% if @message.count > 0 %>
+  <% @message.each do |message| %>
+    <%= message.message %>
+    <% if @current_user == @user %>
+      - <%= link_to "Delete", profile_path(message), method: :delete, "data-confirm"=>"Are you sure?" %>
+    <% end %>
+    </br>
+    <%= distance_of_time_in_words(Time.now, message.created_at)%> ago</br><br>
+  <% end %>
+<% else %>
+  <h5>No messages</h5>
+<% end %>
