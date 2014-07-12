@@ -5,4 +5,7 @@ class User < ActiveRecord::Base
   #        :recoverable, :rememberable, :trackable, :validatable
   has_many :messages
   has_many :relationships
+
+  validates :pic, presence: true
+
 end

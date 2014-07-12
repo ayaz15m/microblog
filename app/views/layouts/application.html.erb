@@ -18,21 +18,35 @@
 
 <div class="container">
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
-<%= link_to "Home" , root_path %>
-
-<% if login_signed_in? %>
-  <%= link_to "My Profile" , profile_path(@current_user) %>
-  <%= link_to "My Friends" , friends_path(@current_user) %>
-  <%= link_to "New Message" , message_path(@current_user) %>
-  <%= link_to("Log Out", destroy_login_session_path, :method => :delete) %>
-<% end %>
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <ul class="navbar-brand" style = "font-family: Cursive"><%= link_to "Twotter!", root_path%></ul>
+      <% if login_signed_in? %>
+        <p class="navbar-text">Signed in as <%= @current_user.name %></p>
+      <% end %>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <% if login_signed_in? %>
+          <li><%= link_to "Home", root_path%></li>
+          <li><%= link_to "Profile", profile_path(@current_user)%></li>
+          <li><%= link_to "Friends", friends_path(@current_user)%></li>
+          <li><%= link_to "New Message", message_path(@current_user)%></li>
+          <li><%= link_to("Log Out", destroy_login_session_path, :method => :delete) %></li><br><br>
+        <% else %>
+          <p class="notice"><%= notice %></p>
+          <font color="red" class="alert"><%= alert %></font>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 
 <%= yield %>
 </div>
 
 </body>
+
 </html>

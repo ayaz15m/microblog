@@ -1,40 +1,48 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-
 User.destroy_all
 Relationship.destroy_all
 Message.destroy_all
+Login.destroy_all
 
 
-ayaz = User.create name: "Ayaz", location: "Houston, TX", pic: "http://shutupdad.files.wordpress.com/2012/07/ww.jpg"
-bob = User.create name: "Bob", location: "Dallas, TX", pic: "http://images2.fanpop.com/image/photos/13500000/Brushing-Teeth-spongebob-squarepants-13515969-1280-1024.jpg"
-sarah = User.create name: "Sarah", location: "Fort Worth, TX", pic: "http://www.heisingart.com/Mammals/otters/SeaOttersMLFam_024w.jpg"
-kramer = User.create name: "Kramer", location: "San Antonio, TX", pic: "http://th02.deviantart.net/fs71/PRE/f/2013/038/4/0/patrick_star_rainmeter_skin_by_no121else-d5u56i2.png"
-liz = User.create name: "Liz", location: "Austin, TX", pic: "http://download.4-designer.com/files/20130110/Figure-cartoon-image-psd-layered-material-46287.jpg"
-greg = User.create name: "Greg", location: "Galveston, TX", pic: "http://www.aperfectworld.org/clipart/cartoons/tourist.png"
-adam = User.create name: "Adam", location: "College Station, TX", pic: "http://0.tqn.com/d/rock/1/0/D/5/-/-/simp_HomerSingle08_f.jpg"
+ayaz = User.create name: "Ayaz Merchant", location: "Houston, TX", pic: "http://1.bp.blogspot.com/-rRuEUw7ZUKc/TuKEF4yxmUI/AAAAAAAAAuI/rW785s_mGBs/s1600/worm-hole-space-art-1-x1gqjmibsb-1280x1024.jpg"
+spongebob = User.create name: "Spongebob Squarepants", location: "Dallas, TX", pic: "http://images6.fanpop.com/image/photos/33100000/Spongebob-Wallpaper-spongebob-squarepants-33184550-1024-768.jpg"
+sandy = User.create name: "Sandy Squirrel", location: "Fort Worth, TX", pic: "http://www.heisingart.com/Mammals/otters/SeaOttersMLFam_024w.jpg"
+patrick = User.create name: "Patrick Conehead", location: "San Antonio, TX", pic: "http://th02.deviantart.net/fs71/PRE/f/2013/038/4/0/patrick_star_rainmeter_skin_by_no121else-d5u56i2.png"
+kramer = User.create name: "Cosmo Kramer", location: "Austin, TX", pic: "http://download.4-designer.com/files/20130110/Figure-cartoon-image-psd-layered-material-46287.jpg"
+greg = User.create name: "Greg Jacobs", location: "Galveston, TX", pic: "http://www.aperfectworld.org/clipart/cartoons/tourist.png"
+adam = User.create name: "Adam Jones", location: "College Station, TX", pic: "http://0.tqn.com/d/rock/1/0/D/5/-/-/simp_HomerSingle08_f.jpg"
 
 
 
-Relationship.create user: bob, follower: ayaz.id
-Relationship.create user: sarah, follower: ayaz.id
+Login.create email: "ayaz@1.com", name: "Ayaz Merchant", password: "ayazayaz"
+Login.create email: "bob@1.com", name: "Spongebob Squarepants", password: "bobbobbob"
+Login.create email: "sarah@1.com", name: "Sandy Squirrel", password: "sandysandy"
+Login.create email: "kramer@1.com", name: "Patrick Conehead", password: "patrickpatrick"
+Login.create email: "liz@1.com", name: "Cosmo Kramer", password: "kramerkramer"
+Login.create email: "greg@1.com", name: "Greg Jacobs", password: "greggreg"
+Login.create email: "adam@1.com", name: "Adam Jones", password: "adamadam"
+
+
+
+Relationship.create user: spongebob, follower: ayaz.id
+Relationship.create user: sandy, follower: ayaz.id
 Relationship.create user: kramer, follower: ayaz.id
 
 
-Relationship.create user: kramer, follower: liz.id
-Relationship.create user: sarah, follower: greg.id
-Relationship.create user: ayaz, follower: bob.id
+Relationship.create user: kramer, follower: patrick.id
+Relationship.create user: sandy, follower: greg.id
+Relationship.create user: ayaz, follower: spongebob.id
+Relationship.create user: ayaz, follower: sandy.id
+Relationship.create user: ayaz, follower: kramer.id
+Relationship.create user: ayaz, follower: patrick.id
+Relationship.create user: ayaz, follower: greg.id
+Relationship.create user: ayaz, follower: adam.id
 
 
-Message.create user: ayaz, message: "Ayaz's Message"
-Message.create user: bob, message: "Bob's Message"
-Message.create user: sarah, message: "Sarah's Message"
-Message.create user: kramer, message: "Kramer's Message"
-Message.create user: liz, message: "Liz's Message"
-Message.create user: greg, message: "Greg's Message"
+Message.create user: ayaz, message: "Ayaz's 1st Message"
+Message.create user: spongebob, message: "Spongebob's 1st Message"
+Message.create user: sandy, message: "Sandy's 1st Message"
+Message.create user: kramer, message: "Kramer's 1st Message"
+Message.create user: patrick, message: "Patricks's 1st Message"
+Message.create user: greg, message: "Greg's 1st Message"
+Message.create user: adam, message: "Adam's 1st Message"

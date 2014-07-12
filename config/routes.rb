@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users
   devise_for :logins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'other_profile/:id' => 'other_profile#index', as: :profile
@@ -8,8 +7,12 @@ Rails.application.routes.draw do
   get 'other_profile/friends/:id' => 'other_profile#friends', as: :friends
   post "other_profile" => "other_profile#create_relationship", as: :profiles
   delete 'other_profile/:id' => "other_profile#destroy"
-  patch 'other_profile/:id' => "other_profile#update"
-  # get 'feed/index'
+  delete 'other_profile/:id/unfollow' => "other_profile#delete", as: :unfollow
+
+  get "feed/:id/edit" => "feed#edit", as: :edit_profile
+
+  get 'feed' => "feed#update", as: :pics
+  patch 'feed' => "feed#update"
 
   root to: "feed#index"
 

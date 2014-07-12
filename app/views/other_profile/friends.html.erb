@@ -1,16 +1,55 @@
-<h1><%= @current_user.name %>'s Friends</h1>
+<br><h1 align="center" style = "font-family: Cursive">My Friends</h1><br>
 
-<% if @friends.count > 0 %>
-  <% @friends.each do |friend| %>
-    <%= link_to "#{friend.user.name}" , profile_path(friend.user) %><br><br>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h4> I'm following: </h4>
+  </div>
+  <% if @friends.count > 0 %>
+    <% @friends.each do |friend| %>
+      <div class="panel-body">
+        <%= link_to "#{friend.user.name}" , profile_path(friend.user) %>
+        - <%= link_to "Unfollow" , unfollow_path(user_id: friend.user.id , follower: @current_user), method: :delete, "data-confirm"=>"Are you sure?" %><br><br>
+      </div>
+    <% end %>
+  <% else %>
+    <h5 align="center"> You are not following anyone :( </h5><br>
   <% end %>
-<% end %>
+  </div>
+</div>
 
-<h1> Other </h1>
+<div class="container">
+  <div class="panel panel-warning">
+    <div class="panel-heading">
+      <h4> My followers: </h4>
+    </div>
+    <% if @followers.count > 0 %>
+      <% @followers.each do |friend| %>
+        <div class="panel-body">
+          <%= "#{friend.name}" %><br><br>
+        </div>
+      <% end %>
+    <% else %>
+      <h5 align="center"> You have no followers :( </h5><br>
+    <% end %>
+    </div>
+  </div>
+</div>
 
-<% if @other_peeps.count > 0 %>
-  <% @other_peeps.each do |friend| %>
-    <h7><%= "#{friend.name} -" %></h7>
-    <%= link_to "FOLLOW", profiles_path(user_id: friend.id , follower: @current_user), method: :post%><br><br>
-  <% end %>
-<% end %>
+<div class="container">
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h4> Other People </h4>
+    </div>
+    <% if @other_peeps.count > 0 %>
+      <% @other_peeps.each do |friend| %>
+        <div class="panel-body">
+          <%= "#{friend.name} -" %>
+          <%= link_to "FOLLOW", profiles_path(user_id: friend.id , follower: @current_user), method: :post%><br><br>
+        </div>
+      <% end %>
+    <% else %>
+      <h5 align="center"> You are following everybody </h5><br>
+    <% end %>
+    </div>
+  </div>
+</div>

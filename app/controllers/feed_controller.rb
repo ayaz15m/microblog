@@ -2,19 +2,21 @@ class FeedController < ApplicationController
 
   before_action :authenticate_login!
 
-
   def index
-    @relationship = Relationship.where(follower: @current_user.id)
-
-    @message = []
-
-    @relationship.each do |relationship|
-      @message << Message.find_by(user_id: relationship.user_id)
-    end
+    ids_of_users_i_follow = Relationship.where(follower: @current_user.id).pluck(:user_id)
+    @messages = Message.where(user_id: ids_of_users_i_follow).includes(:user).order("created_at DESC")
   end
 
   def message
     @message = Message.new
+  end
+
+  def update
+    if @current_user.update(picture_params)
+      redirect_to profile_path(@current_user)
+    else
+      render :edit
+    end
   end
 
   def create_message
@@ -28,6 +30,10 @@ class FeedController < ApplicationController
         render :message
       end
   end
+  private
+    def picture_params
+      params.require(:user).permit(:pic)
+    end
 
   private
   def message_params

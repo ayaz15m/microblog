@@ -1,9 +1,13 @@
-<h1>Create a new message <%= @current_user.name %></h1>
-
-<div class="col-md-8">
+<br>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">New Message</h3>
+  </div>
   <%= simple_form_for(@message) do |f| %>
-    <% f.hidden_field :user_id, :value => @current_user.id %>
-    <%= f.input :message %>
-    <%= f.submit class: "btn btn-primary"%>
+    <div class="panel-body">
+      <% f.hidden_field :user_id, :value => @current_user.id %>
+      <%= f.input :message %>
+      <%= f.submit class: "btn btn-primary"%>
+    </div>
   <% end %>
 </div>

@@ -1,0 +1,13 @@
+<br>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Change Picture</h3>
+  </div>
+    <%= simple_form_for @current_user, url: :pics do |f| %>
+    <div class="panel-body">
+
+      <%= f.input :pic, :placeholder => "placeholder text"  %>
+      <%= f.submit "Update Profile",class: "btn btn-info"%>
+    </div>
+  <% end %>
+</div>

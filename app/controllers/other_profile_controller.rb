@@ -2,58 +2,47 @@ class OtherProfileController < ApplicationController
   def index
     @user = User.find(params[:id])
     @message = Message.all.where(user: params[:id])
+    @messages = @message.order("created_at DESC")
   end
 
   def friends
-    @relationship = Relationship.where(follower: @current_user.id)
+    ids_of_users_i_follow = Relationship.where(follower: @current_user.id).pluck(:user_id)
 
-    @friends = []
-
-    @relationship.each do |relationship|
-      @friends << Message.find_by(user_id: relationship.user_id)
-    end
-
-
-    @other_relationship = Relationship.where.not(follower: @current_user.id)
-    @other_people = @other_relationship.where.not(user_id: @current_user.id)
-
-    @others = []
-
-    @other_people.each do |relationship|
-      @others<< Message.find_by(user_id: relationship.follower)
-    end
+    @friends = Message.where(user_id: ids_of_users_i_follow).includes(:user).order("created_at DESC")
 
     @bb = []
-
-
     @friends.each do |user|
       @bb << User.find_by(id: user.user_id)
     end
 
-    @cu = [@current_user]
-    @cc = User.all
+    @other_peeps = (User.all - @bb)-[@current_user]
 
-    @other_peeps = (@cc - @bb)-@cu
+    follower = Relationship.where(user_id: @current_user.id).pluck(:follower)
 
-
-    #### when all other ppl are followed and dont have message---- need to sort users not by messages
-    ### BLOCK USER
-    ### add devise to user
-    ### show messages most current
-
+    @followers = User.where(id: follower)
   end
 
   def create_relationship
     follower = User.find(params[:follower])
     user = User.find(params[:user_id])
     Relationship.create user: user, follower: follower.id
-    redirect_to root_path
+
+    redirect_to friends_path(@current_user.id)
   end
 
   def destroy
     @message = Message.find(params[:id])
     @message.destroy
+
     redirect_to profile_path(@current_user.id)
   end
 
+  def delete
+    follower = User.find(params[:follower])
+    user = User.find(params[:user_id])
+    @relationship = Relationship.find_by(user_id: user, follower: follower)
+    @relationship.destroy
+
+    redirect_to friends_path(@current_user.id)
+  end
 end

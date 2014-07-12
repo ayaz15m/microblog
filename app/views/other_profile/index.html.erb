@@ -1,16 +1,41 @@
-<h1><%= @user.name %>'s Profile</h1>
-<%=  @user.location %><br>
-<%= image_tag @user.pic, class: "thumb" %></br><br>
-
-<% if @message.count > 0 %>
-  <% @message.each do |message| %>
-    <%= message.message %>
-    <% if @current_user == @user %>
-      - <%= link_to "Delete", profile_path(message), method: :delete, "data-confirm"=>"Are you sure?" %>
-    <% end %>
-    </br>
-    <%= distance_of_time_in_words(Time.now, message.created_at)%> ago</br><br>
+<div class="panel panel-default">
+  <% if @current_user == @user %>
+    <br><h1 align="center" style = "font-family: Cursive">My Profile</h1><br>
+  <% else %>
+    <br><h1 align="center" style = "font-family: Cursive"><%= @user.name %>'s Profile</h1><br>
   <% end %>
-<% else %>
-  <h5>No messages</h5>
-<% end %>
+  <br>
+  <div class="panel-body" align="center">
+    <div class="col-md-6">
+      <%= image_tag @user.pic, class: "thumb" %></br><br>
+    </div>
+    <div class="col-md-6">
+      Name: <%= @user.name %><br><br>
+      Location: <%=  @user.location %><br><br>
+    </div>
+  </div>
+
+  <div class="panel panel-primary" >
+    <div class="panel-heading">
+      <h3 class="panel-title">Recent Messages</h3>
+    </div>
+    <div class="panel-body">
+      <% if @messages.count > 0 %>
+        <% @messages.each do |message| %>
+          <%= message.message %>
+          - <%= distance_of_time_in_words(Time.now, message.created_at)%> ago
+
+          <% if @current_user == @user %>
+            - <%= link_to "Delete", profile_path(message), method: :delete, "data-confirm"=>"Are you sure?" %>
+          <% end %>
+          </br><br>
+        <% end %>
+      <% else %>
+        <h5>No messages</h5><br>
+      <% end %>
+    </div>
+    <% if @current_user == @user %>
+      <div class="panel-footer"><%= link_to "Edit Profile", edit_profile_path %></div>
+    <% end %>
+  </div>
+</div>

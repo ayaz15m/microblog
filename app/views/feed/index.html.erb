@@ -1,13 +1,19 @@
-<h1>Hello <%= @current_user.name %>!</h1>
+<br><h1 align="center" class="glow" style = "font-family: Cursive">Hello <%= @current_user.name %>!</h1><br><br>
 
-<% if @message.count > 0 %>
-  <% @message.each do |message| %>
+<% if @messages.count > 0 %>
+  <% @messages.each do |message| %>
     <% if message %>
-      <%= link_to "#{message.user.name}" , profile_path(message.user) %><br>
-      <%= message.message %><br>
-      <%= distance_of_time_in_words(Time.now, message.created_at)%> ago</br></br>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <%= link_to "#{message.user.name}" , profile_path(message.user) %>
+        </div>
+        <div class="panel-body">
+          <%= message.message %>
+          - <%= distance_of_time_in_words(Time.now, message.created_at)%> ago
+        </div>
+      </div>
     <% end %>
-  <% end %>`
+  <% end %>
 <% else %>
-  <h5>No recent posts</h5>
+  <h5>No recent posts</h5><br>
 <% end %>

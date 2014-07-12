@@ -1,3 +1,13 @@
 // Place all the styles related to the feed controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+
+.glow, .glow:focus, .glow.hover
+{
+  color: #fff;
+	text-shadow: 0px -1px 4px white, 0px -2px 10px yellow, 0px -10px 20px #ff8000, 0px -18px 40px red;
+	font: 80px 'BlackJackRegular';
+}
